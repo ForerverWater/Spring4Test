@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+ <property name="LOG_HOME" value="C:/logs" />  
+<!-- 定义一个叫 STDOUT的 appender -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender"> 
+　　　　　　　　<file>c://logback.log</file> 
+　　　　　　　　<append>true</append> 
+　　　　　　　　<encoder> 
+　　　　　　　　　　<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern> 
+　　　　　　　　</encoder> 
+　</appender>
+
+ <appender name="DAY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+　　　　　　　<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/logback.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>   
+　　　　　　　　<encoder> 
+　　　　　　　　　　<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern> 
+　　　　　　　　</encoder>
+ 		<!--日志文件最大的大小-->
+       <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+         <MaxFileSize>5MB</MaxFileSize>
+       </triggeringPolicy> 
+　</appender>
+  
+  <!-- 定义个logger -->
+  <!-- 等级为DEBUG additivity为false代表不向上级传递 -->
+  <!-- name属性表示控制 org.springframework.web所有包下所有的日志都用这个logger  -->
+  <logger name="org.springframework.web" level="DEBUG" additivity="false">  
+    <appender-ref ref="DAY_FILE"/>  
+  </logger>
+  <root level="debug">
+    <appender-ref ref="DAY_FILE" />
+  </root>
+</configuration>

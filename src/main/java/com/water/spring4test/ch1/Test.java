@@ -9,5 +9,6 @@ public class Test {
 		UseFunctionService userFuncitonService = context.getBean(UseFunctionService.class);
 		System.out.println(userFuncitonService.sayHello("你好"));
 		context.close();
+		
 	}
 }

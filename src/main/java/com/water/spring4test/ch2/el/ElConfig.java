@@ -33,7 +33,7 @@ public class ElConfig {
 	@Value("#{T(java.lang.Math).random() * 100.0 }")
 	private double randomNumber;
 
-	@Value("#{demoService.another}")
+	@Value("#{DDemoService2111111.another}")
 	private String fromAnother;
 
 	@Value("classpath:com/water/spring4test/ch2/el/test.txt")
